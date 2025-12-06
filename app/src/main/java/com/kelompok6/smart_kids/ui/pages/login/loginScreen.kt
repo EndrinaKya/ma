@@ -16,13 +16,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.text.style.TextAlign
+import com.kelompok6.smart_kids.viewmodel.LoginState
+import com.kelompok6.smart_kids.viewmodel.LoginViewModel
+
 
 
 @Composable
-fun LoginScreen(onRegisterClick: () -> Unit) {
+fun LoginScreen(
+    onRegisterClick: () -> Unit,
+    viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val state by viewModel.loginState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -46,14 +54,17 @@ fun LoginScreen(onRegisterClick: () -> Unit) {
         Column(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {
-            Text("HELLO!!",
+            Text(
+                "HELLO!!",
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White)
-            Text("Selamat Datang di Smart Kids",
+                color = Color.White
+            )
+            Text(
+                "Selamat Datang di Smart Kids",
                 fontSize = 14.sp,
-                color = Color.White)
-
+                color = Color.White
+            )
         }
 
         Spacer(modifier = Modifier.height(50.dp))
@@ -66,7 +77,7 @@ fun LoginScreen(onRegisterClick: () -> Unit) {
 
             OutlinedTextField(
                 value = email,
-                onValueChange = { email = it }, //it = update variabel email dengan nilai baru
+                onValueChange = { email = it },
                 placeholder = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
@@ -78,6 +89,7 @@ fun LoginScreen(onRegisterClick: () -> Unit) {
                     cursorColor = Color.Black
                 )
             )
+
             Spacer(Modifier.height(25.dp))
 
             OutlinedTextField(
@@ -93,7 +105,6 @@ fun LoginScreen(onRegisterClick: () -> Unit) {
                     unfocusedBorderColor = Color.Transparent,
                     cursorColor = Color.Black
                 )
-
             )
 
             Spacer(Modifier.height(15.dp))
@@ -105,10 +116,38 @@ fun LoginScreen(onRegisterClick: () -> Unit) {
             )
         }
 
-        Spacer(Modifier.height(25.dp))
+        Spacer(Modifier.height(20.dp))
 
+        // 🔥 ERROR / LOADING / SUCCESS ditampilkan DI ATAS BUTTON
+        when (state) {
+            is LoginState.Loading -> {
+                Text("Loading...", color = Color.White)
+                Spacer(Modifier.height(8.dp))
+            }
+            is LoginState.Error -> {
+                Text(
+                    (state as LoginState.Error).message,
+                    color = Color.Red,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(Modifier.height(8.dp))
+            }
+            is LoginState.Success -> {
+                Text(
+                    text = "Login Berhasil!",
+                    color = Color.Green,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(Modifier.height(8.dp))
+            }
+            else -> {}
+        }
+
+        // 🔥 Tombol Login
         Button(
-            onClick = { },
+            onClick = {
+                viewModel.login(email, password)
+            },
             modifier = Modifier
                 .width(180.dp)
                 .height(50.dp),
@@ -122,15 +161,17 @@ fun LoginScreen(onRegisterClick: () -> Unit) {
         }
 
         Spacer(Modifier.height(15.dp))
+
         Text(
             text = "Belum mempunyai akun? Register?",
             fontSize = 12.sp,
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

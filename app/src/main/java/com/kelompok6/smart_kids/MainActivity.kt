@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
+import com.kelompok6.smart_kids.ui.pages.register.RegisterScreen
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,12 +45,14 @@ class MainActivity : ComponentActivity() {
 
                     composable("register") {
                         RegisterScreen(
-                            onLoginSuccess = {
+                            onNavigateToLogin = {
+                                // Klik "Sudah punya akun? Login" → ke login
                                 navController.navigate("login") {
                                     popUpTo("register") { inclusive = true }
                                 }
                             },
-                            onClickRegister = {
+                            onRegisterSuccess = {
+                                // ✅ Registrasi sukses → langsung ke login
                                 navController.navigate("login") {
                                     popUpTo("register") { inclusive = true }
                                 }
@@ -56,11 +60,10 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-
-                    composable("login"){
+                    composable("login") {
                         LoginScreen(
                             onRegisterClick = {
-                                // tombol "belum punya akun? Register"
+                                // tombol "Belum punya akun? Register"
                                 navController.navigate("register")
                             }
                         )
@@ -71,6 +74,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// --- SplashScreen tetap sama ---
 @Composable
 fun SplashScreen(onLogoClick: () -> Unit) {
     Box(
@@ -82,7 +86,6 @@ fun SplashScreen(onLogoClick: () -> Unit) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Image(
                 painter = painterResource(id = R.drawable.smartkids),
                 contentDescription = "Logo Smart Kids",
@@ -108,4 +111,3 @@ fun SplashScreen(onLogoClick: () -> Unit) {
 fun SplashScreenPreview() {
     SplashScreen(onLogoClick = {})
 }
-
