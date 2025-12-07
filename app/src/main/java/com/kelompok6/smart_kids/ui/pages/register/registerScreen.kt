@@ -178,7 +178,7 @@ fun RegisterScreen(
                     modifier = Modifier.size(16.dp)
                 )
             } else {
-                Text("DAFTAR", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text("Daftar", fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
         }
 
