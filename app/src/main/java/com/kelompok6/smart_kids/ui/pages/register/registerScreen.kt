@@ -50,7 +50,7 @@ fun RegisterScreen(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(
-                "REGISTER AKUN",
+                "Register Akun",
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
