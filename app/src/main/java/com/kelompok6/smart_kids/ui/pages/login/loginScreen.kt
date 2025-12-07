@@ -55,7 +55,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(
-                "HELLO!!",
+                "HELLO KIDS!!",
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
@@ -81,7 +81,7 @@ fun LoginScreen(
                 placeholder = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),
-                colors = OutlinedTextFieldDefaults.colors(
+                colors = OutlinedTextFieldDefaults.colors( 
                     focusedContainerColor = Color.White,
                     unfocusedContainerColor = Color.White,
                     focusedBorderColor = Color.Transparent,
