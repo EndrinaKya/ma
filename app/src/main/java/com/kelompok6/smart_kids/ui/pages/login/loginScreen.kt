@@ -107,6 +107,10 @@ fun LoginScreen(
                 )
             )
 
+        }
+
+        Spacer(Modifier.height(20.dp))
+
         // 🔥 ERROR / LOADING / SUCCESS ditampilkan DI ATAS BUTTON
         when (state) {
             is LoginState.Loading -> {
