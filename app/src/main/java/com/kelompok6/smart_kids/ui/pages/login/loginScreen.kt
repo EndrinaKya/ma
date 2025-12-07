@@ -72,7 +72,7 @@ fun LoginScreen(
         Column(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {
-            Text("LOGIN", fontSize = 30.sp, fontWeight = FontWeight.Bold)
+            Text("Login", fontSize = 30.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(25.dp))
 
             OutlinedTextField(
