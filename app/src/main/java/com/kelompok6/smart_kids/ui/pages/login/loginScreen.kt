@@ -55,7 +55,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(
-                "HELLO KIDS!!",
+                "HELLO KIDS KIDS!!",
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
