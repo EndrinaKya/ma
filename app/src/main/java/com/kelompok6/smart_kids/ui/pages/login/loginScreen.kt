@@ -107,17 +107,6 @@ fun LoginScreen(
                 )
             )
 
-            Spacer(Modifier.height(15.dp))
-
-            Text(
-                text = "Lupa Kata Sandi?",
-                fontSize = 12.sp,
-                modifier = Modifier.align(Alignment.End)
-            )
-        }
-
-        Spacer(Modifier.height(20.dp))
-
         // 🔥 ERROR / LOADING / SUCCESS ditampilkan DI ATAS BUTTON
         when (state) {
             is LoginState.Loading -> {
