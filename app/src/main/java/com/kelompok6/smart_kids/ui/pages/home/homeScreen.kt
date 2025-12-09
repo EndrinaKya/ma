@@ -3,7 +3,6 @@
 package com.kelompok6.smart_kids.ui.pages.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -18,24 +17,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+
 
 @Composable
 fun HomeScreen(
     onMenuClick: () -> Unit = {}
 ) {
-
-    // Gunakan Surface supaya mengikuti Material Theme
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFA5D6A7)
-    ) {
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            // 🧭 TOP BAR
+    Scaffold(
+        topBar = {
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = onMenuClick) {
@@ -51,39 +46,39 @@ fun HomeScreen(
                     containerColor = Color(0xFFD8EEDC)
                 )
             )
+        },
+        containerColor = Color(0xFFA5D6A7) // menggantikan background dari Surface
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Hai Anak Hebat,\nYuk Belajar di SMART KIDS.",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth()
+            )
 
-            // 📌 Konten Utama
-            Column(
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.beranda),
+                contentDescription = "Education Illustration",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
-                    .padding(horizontal = 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-
-                Text(
-                    text = "Hai Anak Hebat,\nYuk Belajar di SMART KIDS.",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(30.dp))
-
-                Image(
-                    painter = painterResource(id = R.drawable.beranda),
-                    contentDescription = "Education Illustration",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.8f) // lebih stabil di berbagai layar
-                )
-            }
+                    .aspectRatio(1.8f)
+            )
         }
     }
 }
+
 
 
 @Preview(showBackground = true, device = "spec:width=360dp,height=640dp")
