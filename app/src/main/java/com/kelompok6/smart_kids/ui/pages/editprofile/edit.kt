@@ -3,10 +3,11 @@ package com.kelompok6.smart_kids.ui.pages.editprofile
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,165 +19,164 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.tooling.preview.Preview
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
 @Composable
-fun ProfileEditScreen(onBack: () -> Unit) {
+fun ProfileEditScreen(
+    onBackClick: () -> Unit
+) {
     var name by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var confirmPasswordVisible by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFA8D8B9))
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    // Gunakan Surface sebagai background utama
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = Color(0xFFA5D6A7)
     ) {
-        // Header: Tombol Kembali
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopCenter // agar konten mulai dari atas, tapi tetap di tengah horizontal
         ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Kembali",
-                    tint = Color.Black
-                )
+            // Header: tombol back (tanpa TopAppBar)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.back),
+                        contentDescription = "Kembali",
+                        tint = Color.Black,
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
             }
-        }
 
-        // Avatar
-        Spacer(modifier = Modifier.height(24.dp))
-        Image(
-            painter = painterResource(id = R.drawable.profil),
-            contentDescription = null,
-            modifier = Modifier.size(120.dp)
-        )
+            // Konten utama di tengah
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(0.85f)
+                    .verticalScroll(rememberScrollState())
+                    .padding(top = 80.dp, bottom = 32.dp), // 80dp untuk kasih ruang di bawah header
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                // Avatar
+                Image(
+                    painter = painterResource(id = R.drawable.profil),
+                    contentDescription = null,
+                    modifier = Modifier.size(120.dp)
+                )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Input Nama
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Nama") },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(25.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                cursorColor = Color.Black,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black
-            )
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Input Password
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            trailingIcon = {
-                // Ganti dengan dua drawable berbeda jika ingin ikon berubah
-                val eyeImage = painterResource(id = R.drawable.pswd) // gunakan satu ikon dulu
-                IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Image(
-                        painter = eyeImage,
-                        contentDescription = if (passwordVisible) "Sembunyikan password" else "Tampilkan password",
-                        modifier = Modifier.size(24.dp)
+                // Input Nama
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Nama") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                        cursorColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black
                     )
-                }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(25.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                cursorColor = Color.Black,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black
-            )
-        )
+                )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Input Konfirmasi Password
-        OutlinedTextField(
-            value = confirmPassword,
-            onValueChange = { confirmPassword = it },
-            label = { Text("Konfirmasi Password") },
-            visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            trailingIcon = {
-                val eyeImage = painterResource(id = R.drawable.pswd)
-                IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
-                    Image(
-                        painter = eyeImage,
-                        contentDescription = if (confirmPasswordVisible) "Sembunyikan password" else "Tampilkan password",
-                        modifier = Modifier.size(24.dp)
+                // Input Password
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    trailingIcon = {
+                        val eyeImage = painterResource(id = R.drawable.pwoff)
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Image(
+                                painter = eyeImage,
+                                contentDescription = if (passwordVisible) "Sembunyikan password" else "Tampilkan password",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                        cursorColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black
                     )
+                )
+
+                // Input Konfirmasi Password
+                OutlinedTextField(
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
+                    label = { Text("Konfirmasi Password") },
+                    visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                    trailingIcon = {
+                        val eyeImage = painterResource(id = R.drawable.pwoff)
+                        IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
+                            Image(
+                                painter = eyeImage,
+                                contentDescription = if (confirmPasswordVisible) "Sembunyikan password" else "Tampilkan password",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent,
+                        cursorColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black
+                    )
+                )
+
+                Spacer(Modifier.height(30.dp))
+
+                Button(
+                    onClick = { /* TODO */ },
+                    modifier = Modifier
+                        .width(180.dp)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFDBEFDC),
+                        contentColor = Color.Black
+                    )
+                ) {
+                    Text("LOGIN", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 }
-            },
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(25.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.White,
-                unfocusedContainerColor = Color.White,
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                cursorColor = Color.Black,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black
-            )
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Tombol Simpan
-        Button(
-            onClick = {
-                // TODO: Tambahkan logika validasi
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-            shape = RoundedCornerShape(25.dp)
-        ) {
-            Text(
-                text = "SIMPAN PERUBAHAN",
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
+            }
         }
     }
 }
 
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewProfileEditScreen() {
     Smart_KidsTheme {
-        ProfileEditScreen(onBack = {})
+        ProfileEditScreen(onBackClick = {})
     }
 }
