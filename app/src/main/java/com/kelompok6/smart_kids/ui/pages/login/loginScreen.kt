@@ -44,13 +44,13 @@ fun LoginScreen(
             onClick = { onRegisterClick() },
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(16.dp)
+                .padding(20.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.back),
                 contentDescription = "Kembali",
                 tint = Color.Unspecified,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(40.dp)
             )
         }
 
@@ -61,7 +61,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(70.dp))
 
             Image(
                 painter = painterResource(id = R.drawable.smartlogin),
@@ -114,7 +114,7 @@ fun LoginScreen(
                     )
                 )
 
-                Spacer(Modifier.height(25.dp))
+                Spacer(Modifier.height(30.dp))
 
                 OutlinedTextField(
                     value = password,
@@ -135,7 +135,7 @@ fun LoginScreen(
 
             }
 
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(30.dp))
 
             when (state) {
                 is LoginState.Loading -> {
@@ -194,8 +194,7 @@ fun LoginScreen(
 }
 
 @Preview(
-    showBackground = true,
-    showSystemUi = true
+    showBackground = true, showSystemUi = true
 )
 @Composable
 fun PreviewLoginScreen() {

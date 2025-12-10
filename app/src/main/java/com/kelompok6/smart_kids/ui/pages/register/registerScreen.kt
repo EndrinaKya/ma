@@ -24,8 +24,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.tooling.preview.Preview
+import com.kelompok6.smart_kids.LoginScreen
+import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
 
 @Composable
@@ -57,13 +58,13 @@ fun RegisterScreen(
             onClick = { onNavigateToLogin() },
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(16.dp)
+                .padding(20.dp)
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.back),
                 contentDescription = "Kembali",
                 tint = Color.Unspecified,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(40.dp)
             )
         }
 
@@ -81,7 +82,7 @@ fun RegisterScreen(
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(Modifier.height(25.dp))
+                Spacer(Modifier.height(30.dp))
 
                 OutlinedTextField(
                     value = namaLengkap,
@@ -99,7 +100,7 @@ fun RegisterScreen(
                         unfocusedTextColor = Color.Black
                     )
                 )
-                Spacer(Modifier.height(25.dp))
+                Spacer(Modifier.height(30.dp))
 
                 OutlinedTextField(
                     value = email,
@@ -117,7 +118,7 @@ fun RegisterScreen(
                         unfocusedTextColor = Color.Black
                     )
                 )
-                Spacer(Modifier.height(25.dp))
+                Spacer(Modifier.height(30.dp))
 
                 OutlinedTextField(
                     value = password,
@@ -136,7 +137,7 @@ fun RegisterScreen(
                         unfocusedTextColor = Color.Black
                     )
                 )
-                Spacer(Modifier.height(25.dp))
+                Spacer(Modifier.height(30.dp))
 
                 OutlinedTextField(
                     value = konfirPass,
@@ -168,7 +169,7 @@ fun RegisterScreen(
                 }
             }
 
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(30.dp))
 
             val isLoading = registerState is RegisterState.Loading
 
@@ -226,7 +227,20 @@ fun RegisterScreen(
                 color = Color.Blue
             )
         }
-        // ✅ Penutup Column UTAMA
+
     }
-    // ✅ Penutup Box
+
+}
+
+@Preview(
+    showBackground = true, showSystemUi = true
+)
+@Composable
+fun PreviewRegisterScreen() {
+    Smart_KidsTheme {
+        RegisterScreen(
+            onNavigateToLogin = { },
+            onRegisterSuccess = { }
+        )
+    }
 }

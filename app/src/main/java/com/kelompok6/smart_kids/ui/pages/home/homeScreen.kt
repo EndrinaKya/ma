@@ -81,10 +81,12 @@ fun HomeScreen(
 
 
 
-@Preview(showBackground = true, device = "spec:width=360dp,height=640dp")
+@Preview(
+    showBackground = true, showSystemUi = true
+)
 @Composable
-fun HomeScreenPreview() {
+fun PreviewRegisterScreen() {
     Smart_KidsTheme {
-        HomeScreen()
+        HomeScreen {}
     }
 }

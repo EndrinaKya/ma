@@ -10,9 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kelompok6.smart_kids.R
+import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun SlideBar(onMenuClick: (String) -> Unit) {
@@ -21,48 +25,63 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
             .background(Color(0xFFD8EEDC))
             .fillMaxHeight()
     ) {
+        // Container utama dengan lebar tetap
         Box(
             modifier = Modifier
-                .width(300.dp) // ← Atur lebar di sini
+                .width(300.dp)
                 .fillMaxHeight()
         ) {
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.Start
             ) {
-                // Header: Back + Profile
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                // === Header: Back + Profil ===
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.Start
                 ) {
-                    IconButton(onClick = { /* ... */ }) {
+                    // Tombol Back
+                    IconButton(
+                        onClick = { /* navigasi back */ },
+                        modifier = Modifier
+                            .size(48.dp) // ← ukuran total tombol (area klik)
+                    ) {
                         Icon(
                             painter = painterResource(id = R.drawable.back),
-                            contentDescription = "Back",
-                            tint = Color.Black
+                            contentDescription = "Kembali",
+                            tint = Color.Black,
+                            modifier = Modifier.size(32.dp) // ← ukuran ikon di dalam
                         )
                     }
 
-                    Icon(
-                        painter = painterResource(id = R.drawable.profil),
-                        contentDescription = "Profile",
-                        tint = Color.Black,
-                        modifier = Modifier.size(64.dp)
-                    )
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                    // Ikon Profil (di tengah lebar drawer)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 4.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.profil),
+                            contentDescription = "Profil",
+                            tint = Color.Black,
+                            modifier = Modifier.size(64.dp)
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(40.dp))
 
-                // Menu Items
+                // === Menu Items ===
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                        .padding(horizontal = 30.dp),
+                    verticalArrangement = Arrangement.spacedBy(30.dp)
                 ) {
                     DrawerItem(
                         text = "Beranda",
@@ -85,22 +104,6 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
                         backgroundColor = Color(0xFF9CD7A0)
                     )
                 }
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                        .height(100.dp),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    Text(
-                        text = "KIDS.",
-                        fontSize = 20.sp,
-                        color = Color.Black
-                    )
-                }
             }
         }
     }
@@ -112,15 +115,29 @@ private fun DrawerItem(
     onClick: () -> Unit,
     backgroundColor: Color
 ) {
-    NavigationDrawerItem(
-        label = { Text(text, fontSize = 16.sp, color = Color.Black) },
-        selected = false,
-        onClick = onClick,
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(50.dp))
+            .height(50.dp)
+            .clip(RoundedCornerShape(25.dp))
             .background(backgroundColor)
-            .padding(vertical = 12.dp, horizontal = 24.dp)
-    )
+            .clickable(onClick = onClick)
+            .padding(vertical = 10.dp, horizontal = 20.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            fontSize = 18.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun PreviewSlideBar() {
+    Smart_KidsTheme {
+        SlideBar(onMenuClick = {})
+    }
+}
