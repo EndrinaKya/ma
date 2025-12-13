@@ -130,7 +130,7 @@ fun LoginScreen(
             Spacer(Modifier.height(30.dp))
 
             Button(
-                onClick = { onLoginClick(email, password) }, // ✅ Kirim data ke Activity
+                onClick = { onLoginClick(email, password) },
                 modifier = Modifier
                     .width(180.dp)
                     .height(50.dp),
@@ -145,20 +145,29 @@ fun LoginScreen(
 
             Spacer(Modifier.height(15.dp))
 
-            Text(
-                text = "Belum mempunyai akun? Register?",
-                fontSize = 12.sp,
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onRegisterClick() },
-                textAlign = TextAlign.Center,
-                color = Color.White // ✅ Pastikan warna sesuai background
-            )
+                    .padding(top = 15.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Belum mempunyai akun? ",
+                    fontSize = 12.sp,
+                    color = Color.Black
+                )
+                Text(
+                    text = "Register",
+                    fontSize = 12.sp,
+                    color = Color.Blue,
+                    modifier = Modifier.clickable { onRegisterClick() }
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
     Smart_KidsTheme {

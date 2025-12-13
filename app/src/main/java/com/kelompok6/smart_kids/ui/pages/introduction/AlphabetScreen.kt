@@ -1,6 +1,5 @@
-package com.kelompok6.smart_kids.ui.pages.pengenalan
+package com.kelompok6.smart_kids.ui.pages.introduction
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -9,43 +8,54 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFC8E6C9)) // hijau muda
-    ) {
+fun AlphabetScreen(
+    onBackClick: () -> Unit,
+    onNextClick: () -> Unit
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBackClick,
+                        modifier = Modifier.padding(start = 20.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.back),
+                            contentDescription = "Kembali",
+                            tint = Color.Black,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                },
+                title = {},
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFFD8EEDC)
+                )
+            )
+        },
+        containerColor = Color(0xFFA5D6A7)
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // === 1. Header Panah Kiri ===
-            IconButton(
-                onClick = onBackClick,
-                modifier = Modifier.size(50.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.back),
-                    contentDescription = "Kembali",
-                    tint = Color.Black,
-                    modifier = Modifier.size(32.dp)
-                )
-            }
+            Spacer(modifier = Modifier.height(30.dp))
 
-            Spacer(modifier = Modifier.height(20.dp))
-
-            // === 2. Instruksi + Speaker ===
+            // === Instruksi + Speaker ===
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(horizontal = 24.dp)
@@ -56,7 +66,7 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                     tint = Color.Black,
                     modifier = Modifier.size(40.dp)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = "Yuk, tekan hurufnya dan dengar bunyi-nya!",
                     fontSize = 20.sp,
@@ -65,16 +75,16 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(40.dp))
 
-            // === 3. Grid Huruf A-Z ===
+            // === Grid Huruf A-Z (Manual seperti awal) ===
             Column(
-                verticalArrangement = Arrangement.spacedBy(25.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 // Baris 1: A-E
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AlphabetButton("A") { /* suara A */ }
                     AlphabetButton("B") { /* suara B */ }
                     AlphabetButton("C") { /* suara C */ }
@@ -83,7 +93,7 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                 }
 
                 // Baris 2: F-J
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AlphabetButton("F") { /* suara F */ }
                     AlphabetButton("G") { /* suara G */ }
                     AlphabetButton("H") { /* suara H */ }
@@ -92,7 +102,7 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                 }
 
                 // Baris 3: K-O
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AlphabetButton("K") { /* suara K */ }
                     AlphabetButton("L") { /* suara L */ }
                     AlphabetButton("M") { /* suara M */ }
@@ -101,7 +111,7 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                 }
 
                 // Baris 4: P-T
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AlphabetButton("P") { /* suara P */ }
                     AlphabetButton("Q") { /* suara Q */ }
                     AlphabetButton("R") { /* suara R */ }
@@ -110,7 +120,7 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                 }
 
                 // Baris 5: U-X
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AlphabetButton("U") { /* suara U */ }
                     AlphabetButton("V") { /* suara V */ }
                     AlphabetButton("W") { /* suara W */ }
@@ -118,50 +128,48 @@ fun AlphabetScreen(onBackClick: () -> Unit, onNextClick: () -> Unit) {
                 }
 
                 // Baris 6: Y-Z
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AlphabetButton("Y") { /* suara Y */ }
                     AlphabetButton("Z") { /* suara Z */ }
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f)) // dorong ke bawah
-
-            // === 4. Tombol NEXT di pojok kanan bawah ===
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                contentAlignment = Alignment.BottomEnd
-            ) {
-                Button(
+            Spacer(modifier = Modifier.height(50.dp))
+            Button(
                     onClick = onNextClick,
                     modifier = Modifier
                         .height(50.dp)
-                        .width(100.dp), // ← diperbesar sedikit
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF81C784))
+                        .width(100.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF81C784)
+                    ),
+                    shape = RoundedCornerShape(20.dp)
                 ) {
                     Text(
                         text = "NEXT",
-                        fontSize = 18.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
                     )
                 }
-
             }
         }
     }
-}
 
 
 @Composable
 fun AlphabetButton(letter: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
-        modifier = Modifier.size(56.dp),
-        shape = RoundedCornerShape(15.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = 1.dp)
+        modifier = Modifier
+            .size(56.dp)
+            .aspectRatio(1f), // ✅ Ini kunci agar tidak miring!
+        shape = RoundedCornerShape(12.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White,
+            contentColor = Color.Black
+        ),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
     ) {
         Text(
             text = letter,

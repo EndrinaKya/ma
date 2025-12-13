@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
+import com.kelompok6.smart_kids.ui.pages.home.HomeActivity
 import com.kelompok6.smart_kids.ui.pages.register.RegisterActivity
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
@@ -15,17 +16,17 @@ class LoginActivity : ComponentActivity() {
 
         setContent {
             Smart_KidsTheme {
+                // ✅ Deklarasi semua state di sini
                 var navigateToRegister by remember { mutableStateOf(false) }
                 var navigateToHome by remember { mutableStateOf(false) }
 
+                // ✅ Tampilkan LoginScreen
                 LoginScreen(
                     onRegisterClick = {
                         navigateToRegister = true
                     },
                     onLoginClick = { email, password ->
-                        // ✅ Validasi sederhana (bisa dikembangkan)
                         if (email.isEmpty() || password.isEmpty()) {
-                            // Tampilkan pesan error
                             Toast.makeText(
                                 this@LoginActivity,
                                 "Email dan password tidak boleh kosong",
@@ -38,43 +39,26 @@ class LoginActivity : ComponentActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         } else {
-                            // Anggap login berhasil → navigasi ke halaman utama
                             navigateToHome = true
                         }
                     }
                 )
 
-                // Navigasi ke Register
+                // ✅ Navigasi ke RegisterActivity
                 LaunchedEffect(navigateToRegister) {
                     if (navigateToRegister) {
                         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                         startActivity(intent)
-                        // Tidak perlu finish(), agar user bisa kembali
                         navigateToRegister = false
                     }
                 }
 
-                // Navigasi ke halaman utama (misal MainActivity)
+                // ✅ Navigasi ke HomeActivity
                 LaunchedEffect(navigateToHome) {
                     if (navigateToHome) {
-                        // Ganti dengan aktivitas utama kamu (misal HomeActivity)
-                        // Contoh:
-                        // val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        // startActivity(intent)
-                        // finish()
-
-                        // Untuk sementara, kita hanya tampilkan toast
-                        Toast.makeText(
-                            this@LoginActivity,
-                            "Login berhasil! (Navigasi ke beranda belum diimplementasi)",
-                            Toast.LENGTH_LONG
-                        ).show()
-
-                        // Jika kamu punya MainActivity, ganti kode di atas dengan:
-                        // val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        // startActivity(intent)
-                        // finish()
-
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                         navigateToHome = false
                     }
                 }
