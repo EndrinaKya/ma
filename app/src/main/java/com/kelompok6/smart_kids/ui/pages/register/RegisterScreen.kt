@@ -1,61 +1,61 @@
 package com.kelompok6.smart_kids.ui.pages.register
 
-import com.kelompok6.smart_kids.R
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kelompok6.smart_kids.viewmodel.RegisterState
-import com.kelompok6.smart_kids.viewmodel.RegisterViewModel
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.kelompok6.smart_kids.LoginScreen
+import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @Composable
 fun RegisterScreen(
     onNavigateToLogin: () -> Unit,
-    onRegisterSuccess: () -> Unit,
-    viewModel: RegisterViewModel = viewModel()
+    onRegisterClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    RegisterScreenContent(
+        onNavigateToLogin = onNavigateToLogin,
+        onRegisterClick = onRegisterClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun RegisterScreenContent(
+    onNavigateToLogin: () -> Unit,
+    onRegisterClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var namaLengkap by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var konfirPass by remember { mutableStateOf("") }
-
-    val registerState by viewModel.registerState.collectAsState()
-
-    LaunchedEffect(registerState) {
-        if (registerState is RegisterState.Success) {
-            onRegisterSuccess()
-        }
-    }
+    var isPasswordVisible by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFA5D6A7))
     ) {
-
         IconButton(
-            onClick = { onNavigateToLogin() },
+            onClick = onNavigateToLogin,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(20.dp)
@@ -68,21 +68,23 @@ fun RegisterScreen(
             )
         }
 
-
         Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 80.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(Modifier.height(60.dp))
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f)
             ) {
                 Text(
                     "Register Akun",
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
                 )
-                Spacer(Modifier.height(30.dp))
+                Spacer(Modifier.height(40.dp))
 
                 OutlinedTextField(
                     value = namaLengkap,
@@ -126,7 +128,18 @@ fun RegisterScreen(
                     placeholder = { Text("Password") },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(25.dp),
-                    visualTransformation = PasswordVisualTransformation(),
+                    visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                            Icon(
+                                painter = painterResource(
+                                    id = if (isPasswordVisible) R.drawable.pwoff else R.drawable.pwon
+                                ),
+                                contentDescription = "Toggle password",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    },
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = Color.White,
                         unfocusedContainerColor = Color.White,
@@ -145,7 +158,18 @@ fun RegisterScreen(
                     placeholder = { Text("Konfirmasi Password") },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(25.dp),
-                    visualTransformation = PasswordVisualTransformation(),
+                    visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                            Icon(
+                                painter = painterResource(
+                                    id = if (isPasswordVisible) R.drawable.pwoff else R.drawable.pwon
+                                ),
+                                contentDescription = "Toggle password",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    },
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = Color.White,
                         unfocusedContainerColor = Color.White,
@@ -156,63 +180,22 @@ fun RegisterScreen(
                         unfocusedTextColor = Color.Black
                     )
                 )
-
-                if (registerState is RegisterState.Error) {
-                    Spacer(Modifier.height(8.dp))
-                    Text(
-                        text = (registerState as RegisterState.Error).message,
-                        color = Color.Red,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
             }
 
             Spacer(Modifier.height(30.dp))
 
-            val isLoading = registerState is RegisterState.Loading
-
             Button(
-                onClick = {
-                    if (namaLengkap.isEmpty()) {
-                        viewModel._registerState.value = RegisterState.Error("Nama lengkap harus diisi")
-                        return@Button
-                    }
-                    if (email.isEmpty()) {
-                        viewModel._registerState.value = RegisterState.Error("Email harus diisi")
-                        return@Button
-                    }
-                    if (password.isEmpty()) {
-                        viewModel._registerState.value = RegisterState.Error("Password harus diisi")
-                        return@Button
-                    }
-                    if (password != konfirPass) {
-                        viewModel._registerState.value = RegisterState.Error("Password tidak cocok")
-                        return@Button
-                    }
-
-                    viewModel.register(namaLengkap, email, password)
-                },
-                enabled = !isLoading,
+                onClick = onRegisterClick,
                 modifier = Modifier
                     .width(180.dp)
                     .height(50.dp),
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isLoading) Color.Gray else Color(0xFFDBEFDC),
+                    containerColor = Color(0xFFDBEFDC),
                     contentColor = Color.Black
                 )
             ) {
-                if (isLoading) {
-                    CircularProgressIndicator(
-                        color = Color.Black,
-                        strokeWidth = 2.dp,
-                        modifier = Modifier.size(16.dp)
-                    )
-                } else {
-                    Text("DAFTAR", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                }
+                Text("DAFTAR", fontSize = 16.sp, fontWeight = FontWeight.Bold)
             }
 
             Spacer(Modifier.height(15.dp))
@@ -227,20 +210,16 @@ fun RegisterScreen(
                 color = Color.Blue
             )
         }
-
     }
-
 }
 
-@Preview(
-    showBackground = true, showSystemUi = true
-)
+@Preview(showBackground = true)
 @Composable
 fun PreviewRegisterScreen() {
     Smart_KidsTheme {
         RegisterScreen(
             onNavigateToLogin = { },
-            onRegisterSuccess = { }
+            onRegisterClick = { }
         )
     }
 }

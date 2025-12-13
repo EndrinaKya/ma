@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
+import com.kelompok6.smart_kids.ui.pages.login.LoginScreen
 import com.kelompok6.smart_kids.ui.pages.register.RegisterScreen
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
@@ -46,13 +46,13 @@ class MainActivity : ComponentActivity() {
                     composable("register") {
                         RegisterScreen(
                             onNavigateToLogin = {
-                                // Klik "Sudah punya akun? Login" → ke login
+                                // Navigasi ke login
                                 navController.navigate("login") {
                                     popUpTo("register") { inclusive = true }
                                 }
                             },
-                            onRegisterSuccess = {
-                                // ✅ Registrasi sukses → langsung ke login
+                            onRegisterClick = {
+                                // Mock: langsung anggap sukses → ke login
                                 navController.navigate("login") {
                                     popUpTo("register") { inclusive = true }
                                 }
@@ -63,8 +63,14 @@ class MainActivity : ComponentActivity() {
                     composable("login") {
                         LoginScreen(
                             onRegisterClick = {
-                                // tombol "Belum punya akun? Register"
                                 navController.navigate("register")
+                            },
+                            onLoginClick = { email, password ->
+                                // Validasi sederhana
+                                if (email.isNotEmpty() && password.isNotEmpty()) {
+                                    // Nanti: ke home
+                                    // navController.navigate("home") { /* ... */ }
+                                }
                             }
                         )
                     }
