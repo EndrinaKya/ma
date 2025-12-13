@@ -1,4 +1,4 @@
-package com.kelompok6.smart_kids
+package com.kelompok6.smart_kids.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.kelompok6.smart_kids.ui.pages.login.LoginScreen
 import com.kelompok6.smart_kids.ui.pages.register.RegisterScreen
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
+import com.kelompok6.smart_kids.R
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,12 +69,12 @@ class MainActivity : ComponentActivity() {
                             onLoginClick = { email, password ->
                                 // Validasi sederhana
                                 if (email.isNotEmpty() && password.isNotEmpty()) {
-                                    // Nanti: ke home
-                                    // navController.navigate("home") { /* ... */ }
+
                                 }
                             }
                         )
                     }
+
                 }
             }
         }

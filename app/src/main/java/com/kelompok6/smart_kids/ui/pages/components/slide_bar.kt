@@ -1,6 +1,7 @@
 package com.kelompok6.smart_kids.ui.pages.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -10,14 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
-import androidx.compose.foundation.clickable
-import androidx.compose.ui.text.style.TextAlign
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SlideBar(onMenuClick: (String) -> Unit) {
     ModalDrawerSheet(
@@ -25,7 +26,6 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
             .background(Color(0xFFD8EEDC))
             .fillMaxHeight()
     ) {
-        // Container utama dengan lebar tetap
         Box(
             modifier = Modifier
                 .width(300.dp)
@@ -34,31 +34,28 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 24.dp), // ✅ disesuaikan
                 horizontalAlignment = Alignment.Start
             ) {
-                // === Header: Back + Profil ===
+                // Header: Back + Profil
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.Start
                 ) {
-                    // Tombol Back
                     IconButton(
-                        onClick = { /* navigasi back */ },
-                        modifier = Modifier
-                            .size(48.dp) // ← ukuran total tombol (area klik)
+                        onClick = { /* Tutup drawer atau kembali */ },
+                        modifier = Modifier.size(48.dp)
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.back),
                             contentDescription = "Kembali",
                             tint = Color.Black,
-                            modifier = Modifier.size(32.dp) // ← ukuran ikon di dalam
+                            modifier = Modifier.size(32.dp)
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(15.dp))
 
-                    // Ikon Profil (di tengah lebar drawer)
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -76,12 +73,12 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                // === Menu Items ===
+                // Menu Items
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 30.dp),
-                    verticalArrangement = Arrangement.spacedBy(30.dp)
+                        .padding(horizontal = 32.dp), // ✅ sedikit lebih dalam
+                    verticalArrangement = Arrangement.spacedBy(24.dp) // ✅ jarak lebih rapat
                 ) {
                     DrawerItem(
                         text = "Beranda",

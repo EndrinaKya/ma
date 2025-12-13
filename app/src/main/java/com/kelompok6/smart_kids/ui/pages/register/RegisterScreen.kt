@@ -200,15 +200,24 @@ fun RegisterScreenContent(
 
             Spacer(Modifier.height(15.dp))
 
-            Text(
-                text = "Sudah mempunyai akun? Login",
-                fontSize = 12.sp,
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { onNavigateToLogin() },
-                textAlign = TextAlign.Center,
-                color = Color.Blue
-            )
+                    .padding(top = 15.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Sudah mempunyai akun? ",
+                    fontSize = 12.sp,
+                    color = Color.Black
+                )
+                Text(
+                    text = "Login",
+                    fontSize = 12.sp,
+                    color = Color.Blue,
+                    modifier = Modifier.clickable { onNavigateToLogin() }
+                )
+            }
         }
     }
 }

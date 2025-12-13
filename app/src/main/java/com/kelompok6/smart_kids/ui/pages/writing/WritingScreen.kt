@@ -1,4 +1,4 @@
-package com.kelompok6.smart_kids.ui.pages.membaca
+package com.kelompok6.smart_kids.ui.pages.writing
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,75 +11,91 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReadingScreen(onBackClick: () -> Unit) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFC8E6C9)) // hijau muda
-    ) {
+fun WritingScreen(onBackClick: () -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBackClick,
+                        modifier = Modifier.padding(start = 20.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.back),
+                            contentDescription = "Kembali",
+                            tint = Color.Black,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                },
+                title = {},
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFFD8EEDC)
+                )
+            )
+        },
+        containerColor = Color(0xFFA5D6A7) // Sesuaikan dengan tema utama
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
-            // === 1. Panah kembali (kiri atas) ===
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                IconButton(
-                    onClick = onBackClick,
-                    modifier = Modifier.size(50.dp)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.back),
-                        contentDescription = "Kembali",
-                        tint = Color.Black,
-                        modifier = Modifier.size(32.dp)
-                    )
-                }
-            }
 
-            // === 2. Judul "MEMBACA" dengan ikon ===
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baca),
+                    painter = painterResource(id = R.drawable.pencil),
                     contentDescription = "Buku",
                     tint = Color.Black,
                     modifier = Modifier.size(30.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "MEMBACA",
+                    text = "MENULIS",
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
             }
+            Spacer(modifier = Modifier.height(40.dp)) // jarak atas
+            Divider(
+                color = Color.Black.copy(alpha = 0.5f),
+                thickness = 2.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+            )
+            Spacer(modifier = Modifier.height(40.dp)) // jarak bawah
 
-            // === 3. Kalimat motivasi ===
-            Spacer(modifier = Modifier.height(60.dp))
             Text(
-                text = "“Yuk mulai membaca! Setiap cerita bisa membuka dunia baru yang penuh hal seru untuk kamu jelajahi!”",
+                text = "“ Ayo menulis! Setiap goresan \n" +
+                        "adalah langkah baru dalam petualangan \n" +
+                        "belajar kamu! ”",
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center,
                 color = Color.Black,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
 
-            // === 4. Bagian HURUF ===
-            Spacer(modifier = Modifier.height(60.dp))
-
+            // === Bagian HURUF ===
+            Spacer(modifier = Modifier.height(40.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -99,9 +115,7 @@ fun ReadingScreen(onBackClick: () -> Unit) {
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
+                    Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "Mengucapkan Huruf",
                         fontSize = 16.sp,
@@ -109,24 +123,24 @@ fun ReadingScreen(onBackClick: () -> Unit) {
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
+
+            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = { /* mulai huruf */ },
                 modifier = Modifier
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = Color(0xFF81C784)
+                    containerColor = Color(0xFF81C784),
+                    contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)
             ) {
-                Text("MULAI", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text("MULAI", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
 
-            // === 5. Bagian KATA ===
+            // === Bagian KATA ===
             Spacer(modifier = Modifier.height(40.dp))
-
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -155,20 +169,19 @@ fun ReadingScreen(onBackClick: () -> Unit) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
+            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = { /* mulai kata */ },
                 modifier = Modifier
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = Color(0xFF81C784)
+                    containerColor = Color(0xFF81C784),
+                    contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)
             ) {
-                Text("MULAI", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                Text("MULAI", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -176,10 +189,10 @@ fun ReadingScreen(onBackClick: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
-fun PreviewReadingScreen() {
+fun PreviewWritingScreen() {
     Smart_KidsTheme {
-        ReadingScreen(onBackClick = {})
+        WritingScreen(onBackClick = {})
     }
 }
