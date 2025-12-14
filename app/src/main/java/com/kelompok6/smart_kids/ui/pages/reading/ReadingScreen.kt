@@ -19,7 +19,11 @@ import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReadingScreen(onBackClick: () -> Unit) {
+fun ReadingScreen(
+    onBackClick: () -> Unit,
+    onStartLettersClick: () -> Unit, // ✅ Tambahkan
+    onStartWordsClick: () -> Unit    // ✅ Tambahkan
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -32,7 +36,7 @@ fun ReadingScreen(onBackClick: () -> Unit) {
                             painter = painterResource(id = R.drawable.back),
                             contentDescription = "Kembali",
                             tint = Color.Black,
-                            modifier = Modifier.size(40.dp)
+                            modifier = Modifier.size(32.dp)
                         )
                     }
                 },
@@ -124,7 +128,7 @@ fun ReadingScreen(onBackClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { /* mulai huruf */ },
+                onClick = onStartLettersClick,
                 modifier = Modifier
                     .height(40.dp)
                     .width(120.dp),
@@ -169,7 +173,7 @@ fun ReadingScreen(onBackClick: () -> Unit) {
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = { /* mulai kata */ },
+                onClick = onStartWordsClick,
                 modifier = Modifier
                     .height(40.dp)
                     .width(120.dp),
@@ -191,6 +195,10 @@ fun ReadingScreen(onBackClick: () -> Unit) {
 @Composable
 fun PreviewReadingScreen() {
     Smart_KidsTheme {
-        ReadingScreen(onBackClick = {})
+        ReadingScreen(
+            onBackClick = {},
+            onStartLettersClick = {},
+            onStartWordsClick = {}
+        )
     }
 }

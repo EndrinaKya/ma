@@ -48,7 +48,7 @@ fun ProfileEditScreen(
                             painter = painterResource(id = R.drawable.back),
                             contentDescription = "Kembali",
                             tint = Color.Black,
-                            modifier = Modifier.size(40.dp)
+                            modifier = Modifier.size(32.dp)
                         )
                     }
                 },
@@ -104,11 +104,10 @@ fun ProfileEditScreen(
                 onValueChange = { currentPassword = it },
                 label = { Text("Password Sekarang") },
                 visualTransformation = if (currentPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 trailingIcon = {
                     IconButton(onClick = { currentPasswordVisible = !currentPasswordVisible }) {
                         Icon(
-                            painter = painterResource(id = if (currentPasswordVisible) R.drawable.pwoff else R.drawable.pwon),
+                            painter = painterResource(id = if (currentPasswordVisible) R.drawable.pwon else R.drawable.pwoff),
                             contentDescription = if (currentPasswordVisible) "Sembunyikan password" else "Tampilkan password",
                             tint = Color.Black,
                             modifier = Modifier.size(24.dp)
@@ -134,11 +133,10 @@ fun ProfileEditScreen(
                 onValueChange = { newPassword = it },
                 label = { Text("Password Baru") },
                 visualTransformation = if (newPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 trailingIcon = {
                     IconButton(onClick = { newPasswordVisible = !newPasswordVisible }) {
                         Icon(
-                            painter = painterResource(id = if (newPasswordVisible) R.drawable.pwoff else R.drawable.pwon),
+                            painter = painterResource(id = if (newPasswordVisible) R.drawable.pwon else R.drawable.pwoff),
                             contentDescription = if (newPasswordVisible) "Sembunyikan password" else "Tampilkan password",
                             tint = Color.Black,
                             modifier = Modifier.size(24.dp)
@@ -164,11 +162,10 @@ fun ProfileEditScreen(
                 onValueChange = { confirmPassword = it },
                 label = { Text("Konfirmasi Password") },
                 visualTransformation = if (confirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 trailingIcon = {
                     IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
                         Icon(
-                            painter = painterResource(id = if (confirmPasswordVisible) R.drawable.pwoff else R.drawable.pwon),
+                            painter = painterResource(id = if (confirmPasswordVisible) R.drawable.pwon else R.drawable.pwoff),
                             contentDescription = if (confirmPasswordVisible) "Sembunyikan password" else "Tampilkan password",
                             tint = Color.Black,
                             modifier = Modifier.size(24.dp)

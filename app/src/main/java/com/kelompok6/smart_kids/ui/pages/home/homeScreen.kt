@@ -31,7 +31,10 @@ fun HomeScreen(
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            SlideBar(onMenuClick = onMenuItemClick)
+            SlideBar { menuItem ->
+                scope.launch { drawerState.close() } // ✅ Tutup drawer
+                onMenuItemClick(menuItem)          // ✅ Lalu panggil callback
+            }
         },
         content = {
             Scaffold(
@@ -40,7 +43,7 @@ fun HomeScreen(
                         navigationIcon = {
                             IconButton(
                                 onClick = {
-                                    scope.launch { drawerState.close() }
+                                    scope.launch { drawerState.open() }
                                 },
                                 modifier = Modifier.padding(start = 20.dp)
                             ) {

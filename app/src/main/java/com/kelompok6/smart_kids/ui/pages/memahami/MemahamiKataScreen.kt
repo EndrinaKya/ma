@@ -1,4 +1,4 @@
-package com.kelompok6.smart_kids.ui.pages.mengucapkan
+package com.kelompok6.smart_kids.ui.pages.memahami
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,7 +18,7 @@ import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MengucapkanHurufScreen(
+fun MemahamiKataScreen(
     onBackClick: () -> Unit,
     onMicClick: () -> Unit,
     letterImageResId: Int? = null
@@ -61,13 +61,13 @@ fun MengucapkanHurufScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 24.dp, vertical = 16.dp)
-                        .padding(bottom = 250.dp + 48.dp), // tinggi mic + jarak aman
+                        .padding(bottom = 250.dp + 48.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Spacer(modifier = Modifier.height(40.dp))
 
                     Text(
-                        text = "MENGUCAPKAN HURUF",
+                        text = "MEMAHAMI KATA",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
@@ -105,7 +105,8 @@ fun MengucapkanHurufScreen(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        text = "Sebut hurufnya yuk!",
+                        text = "Ayo, ucapkan \n" +
+                                "nama gambar di atas!",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         color = Color.Black,
@@ -174,9 +175,9 @@ fun MengucapkanHurufScreen(
 }
 @Preview(showBackground = true)
 @Composable
-fun PreviewMengucapkanHurufScreen() {
+fun PreviewMemahamiKataScreen() {
     Smart_KidsTheme {
-        MengucapkanHurufScreen(
+        MemahamiKataScreen(
             onBackClick = {},
             onMicClick = {}
         )
