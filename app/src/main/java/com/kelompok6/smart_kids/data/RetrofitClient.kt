@@ -5,7 +5,7 @@ object RetrofitClient {
 
 
 
-    private const val BASE_URL = "http://192.168.100.224:3000/api/" // ganti ke URL asli
+    private const val BASE_URL = "http://192.168.100.89:3000/api/" // ganti ke URL asli
 
     val api: ServerAPi by lazy {
         Retrofit.Builder()

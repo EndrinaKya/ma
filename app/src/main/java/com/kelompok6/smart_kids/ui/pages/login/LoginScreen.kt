@@ -14,15 +14,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
+import com.kelompok6.smart_kids.viewmodel.LoginState   // ✅ IMPORT
 
 @Composable
 fun LoginScreen(
+    loginState: LoginState, // ✅ TAMBAH INI
     onRegisterClick: () -> Unit,
     onLoginClick: (email: String, password: String) -> Unit,
     modifier: Modifier = Modifier
@@ -51,8 +52,7 @@ fun LoginScreen(
         }
 
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(70.dp))
@@ -84,6 +84,7 @@ fun LoginScreen(
                     placeholder = { Text("Email") },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(25.dp),
+                    enabled = loginState != LoginState.Loading, // ✅ disable saat loading
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = Color.White,
                         unfocusedContainerColor = Color.White,
@@ -103,7 +104,10 @@ fun LoginScreen(
                     placeholder = { Text("Password") },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(25.dp),
-                    visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    enabled = loginState != LoginState.Loading, // ✅
+                    visualTransformation =
+                        if (isPasswordVisible) VisualTransformation.None
+                        else PasswordVisualTransformation(),
                     trailingIcon = {
                         IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                             Icon(
@@ -134,30 +138,32 @@ fun LoginScreen(
                 modifier = Modifier
                     .width(180.dp)
                     .height(50.dp),
+                enabled = loginState != LoginState.Loading, // ✅
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFDBEFDC),
                     contentColor = Color.Black
                 )
             ) {
-                Text("LOGIN", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                if (loginState == LoginState.Loading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(22.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text("LOGIN", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                }
             }
 
             Spacer(Modifier.height(15.dp))
 
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 15.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
+                Text("Belum mempunyai akun? ", fontSize = 12.sp)
                 Text(
-                    text = "Belum mempunyai akun? ",
-                    fontSize = 12.sp,
-                    color = Color.Black
-                )
-                Text(
-                    text = "Register",
+                    "Register",
                     fontSize = 12.sp,
                     color = Color.Blue,
                     modifier = Modifier.clickable { onRegisterClick() }
@@ -172,10 +178,9 @@ fun LoginScreen(
 fun PreviewLoginScreen() {
     Smart_KidsTheme {
         LoginScreen(
+            loginState = LoginState.Idle,
             onRegisterClick = {},
-            onLoginClick = { email, password ->
-                // Preview tidak perlu aksi
-            }
+            onLoginClick = { _, _ -> }
         )
     }
 }
