@@ -135,7 +135,7 @@ fun WritingScreen(
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF81C784),
+                    containerColor = Color(0xFFD8EEDC),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)
@@ -180,7 +180,7 @@ fun WritingScreen(
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF81C784),
+                    containerColor = Color(0xFFD8EEDC),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)

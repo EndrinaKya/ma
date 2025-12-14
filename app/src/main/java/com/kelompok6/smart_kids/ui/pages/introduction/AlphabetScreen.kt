@@ -141,9 +141,9 @@ fun AlphabetScreen(
                         .height(50.dp)
                         .width(100.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF81C784)
+                        containerColor = Color(0xFFD8EEDC)
                     ),
-                    shape = RoundedCornerShape(20.dp)
+                    shape = RoundedCornerShape(25.dp)
                 ) {
                     Text(
                         text = "NEXT",
@@ -162,11 +162,11 @@ fun AlphabetButton(letter: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier
-            .size(56.dp)
+            .size(60.dp)
             .aspectRatio(1f), // ✅ Ini kunci agar tidak miring!
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White,
+            containerColor = Color(0xFFF8F5E8),
             contentColor = Color.Black
         ),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 2.dp)
