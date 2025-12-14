@@ -12,20 +12,18 @@ import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 class MemahamiKataActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val imageResId = intent.getIntExtra("image_res", 0).takeIf { it != 0 }
+
         setContent {
             Smart_KidsTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MemahamiKataScreen(
-                        onBackClick = { finish() },
-                        onMicClick = {
-                            // TODO: Implementasi mic
-                        },
-                        letterImageResId = null // atau ambil dari intent
-                    )
-                }
+                MemahamiKataScreen(
+                    onBackClick = { finish() },
+                    onMicClick = {
+                        // TODO: Speech recognition
+                    },
+                    wordImageResId = imageResId // ✅
+                )
             }
         }
     }

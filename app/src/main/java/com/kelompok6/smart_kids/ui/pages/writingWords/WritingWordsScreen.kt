@@ -133,16 +133,20 @@ fun WritingWordsScreen(
                                 onClick = { onOptionSelected(option) },
                                 shape = RoundedCornerShape(8.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (selectedWord == option) Color(0xFF81C784) else Color.White,
+                                    containerColor = if (selectedWord == option) {
+                                        Color(0xFFE8E0D0)
+                                    } else {
+                                        Color(0xFFF8F5E8)
+                                    },
                                     contentColor = Color.Black
                                 ),
                                 modifier = Modifier
-                                    .width(64.dp)
-                                    .height(50.dp)
+                                    .width(60.dp)
+                                    .height(60.dp)
                             ) {
                                 Text(
                                     text = option,
-                                    fontSize = 18.sp,
+                                    fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
                                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                                 )
@@ -173,18 +177,7 @@ fun WritingWordsScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Top
                     ) {
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        Divider(
-                            color = Color.Black.copy(alpha = 0.3f),
-                            thickness = 1.dp,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 24.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
+                        // ✅ TEKS PILIHAN DIPINDAH KE ATAS
                         if (selectedWord != null) {
                             Text(
                                 text = "Kamu memilih: $selectedWord",
@@ -195,21 +188,33 @@ fun WritingWordsScreen(
                             )
                         } else {
                             Text(
-                                text = "Pilih beberapa huruf di atas",
+                                text = "Pilih salah satu huruf di atas",
                                 fontSize = 14.sp,
                                 color = Color.Gray,
                                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
+                        // ✅ DIVIDER DI BAWAH TEKS
+                        Divider(
+                            color = Color.Black.copy(alpha = 0.3f),
+                            thickness = 1.dp,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 24.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(30.dp))
+
+                        // === Tombol Cek Jawaban ===
                         Button(
                             onClick = onCheckAnswer,
                             shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF81C784),
-                                contentColor = Color.White
+                                containerColor = Color(0xFFA5D6A7),
+                                contentColor = Color.Black
                             ),
                             modifier = Modifier
                                 .padding(horizontal = 32.dp)
@@ -225,6 +230,7 @@ fun WritingWordsScreen(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
+                        // === Feedback (opsional) ===
                         if (isCorrect != null) {
                             Text(
                                 text = if (isCorrect) "Benar! 👏" else "Salah, coba lagi!",
