@@ -131,16 +131,20 @@ fun WritingLettersScreen(
                                 onClick = { onOptionSelected(option) },
                                 shape = RoundedCornerShape(8.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (selectedLetter == option) Color(0xFF81C784) else Color.White,
+                                    containerColor = if (selectedLetter == option) {
+                                        Color(0xFFE8E0D0)
+                                    } else {
+                                        Color(0xFFF8F5E8)
+                                    },
                                     contentColor = Color.Black
                                 ),
                                 modifier = Modifier
                                     .width(60.dp)
-                                    .height(50.dp)
+                                    .height(60.dp)
                             ) {
                                 Text(
                                     text = option,
-                                    fontSize = 18.sp,
+                                    fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -170,20 +174,7 @@ fun WritingLettersScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Top
                     ) {
-
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        Divider(
-                            color = Color.Black.copy(alpha = 0.3f),
-                            thickness = 1.dp,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 24.dp)
-                        )
-
-                        // === 2. Area pilihan huruf ===
-                        Spacer(modifier = Modifier.height(16.dp))
-
+                        // ✅ TEKS PILIHAN DIPINDAH KE ATAS
                         if (selectedLetter != null) {
                             Text(
                                 text = "Kamu memilih: $selectedLetter",
@@ -201,14 +192,25 @@ fun WritingLettersScreen(
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                        // === 3. Tombol Cek Jawaban ===
+                        // ✅ DIVIDER DI BAWAH TEKS
+                        Divider(
+                            color = Color.Black.copy(alpha = 0.3f),
+                            thickness = 1.dp,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 24.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(30.dp))
+
+                        // === Tombol Cek Jawaban ===
                         Button(
                             onClick = onCheckAnswer,
                             shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF81C784),
+                                containerColor = Color(0xFFA5D6A7),
                                 contentColor = Color.Black
                             ),
                             modifier = Modifier
@@ -225,7 +227,7 @@ fun WritingLettersScreen(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // === 4. Feedback (opsional) ===
+                        // === Feedback (opsional) ===
                         if (isCorrect != null) {
                             Text(
                                 text = if (isCorrect) "Benar! 👏" else "Salah, coba lagi!",
@@ -236,7 +238,6 @@ fun WritingLettersScreen(
                             )
                         }
 
-                        // Spacer bawah agar tidak menempel ke bawah
                         Spacer(modifier = Modifier.weight(1f))
                     }
                 }
