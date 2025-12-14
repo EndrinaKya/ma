@@ -15,17 +15,51 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Smart_Kids">
+
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Smart_Kids">
+            android:name=".ui.pages.login.LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.pages.register.RegisterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.home.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.editprofile.EditProfileActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.reading.ReadingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.writing.WritingActivity"
+           android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.introduction.AlphabetActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.mengucapkan.MengucapkanHurufActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.writingWords.WritingWordsActivity"
+            android:exported="false" />
+
+
+
+
     </application>
 
 </manifest>
