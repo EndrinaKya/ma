@@ -57,7 +57,13 @@
             android:name=".ui.pages.writingWords.WritingWordsActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.pages.memahami.MemahamiKataActivity"
+            android:exported="false" />
 
+        <activity
+            android:name=".ui.pages.writingLetters.WritingLetterActivity"
+            android:exported="false" />
 
 
     </application>
