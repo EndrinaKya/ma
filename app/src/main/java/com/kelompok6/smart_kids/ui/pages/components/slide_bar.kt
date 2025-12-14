@@ -79,7 +79,7 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
             DrawerItem(
                 text = "Beranda",
                 onClick = { onMenuClick("home") },
-                backgroundColor = Color.White
+                backgroundColor = Color(0xFFF8F5E8)
             )
             DrawerItem(
                 text = "Membaca",
@@ -89,7 +89,7 @@ fun SlideBar(onMenuClick: (String) -> Unit) {
             DrawerItem(
                 text = "Menulis",
                 onClick = { onMenuClick("writing") },
-                backgroundColor = Color.White
+                backgroundColor = Color(0xFFF8F5E8)
             )
             DrawerItem(
                 text = "Edit Profile",

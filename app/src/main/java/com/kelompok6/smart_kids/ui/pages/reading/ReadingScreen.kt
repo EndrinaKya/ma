@@ -103,7 +103,7 @@ fun ReadingScreen(
                     .fillMaxWidth()
                     .height(100.dp)
                     .padding(horizontal = 24.dp)
-                    .background(Color(0xFFF1F8E9), RoundedCornerShape(25.dp))
+                    .background(Color(0xFFF8F5E8), RoundedCornerShape(25.dp))
                     .padding(16.dp)
             ) {
                 Column(
@@ -133,7 +133,7 @@ fun ReadingScreen(
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF81C784),
+                    containerColor = Color(0xFFD8EEDC),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)
@@ -148,7 +148,7 @@ fun ReadingScreen(
                     .fillMaxWidth()
                     .height(100.dp)
                     .padding(horizontal = 24.dp)
-                    .background(Color(0xFFF1F8E9), RoundedCornerShape(25.dp))
+                    .background(Color(0xFFF8F5E8), RoundedCornerShape(25.dp))
                     .padding(16.dp)
             ) {
                 Column(
@@ -178,7 +178,7 @@ fun ReadingScreen(
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF81C784),
+                    containerColor = Color(0xFFD8EEDC),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)

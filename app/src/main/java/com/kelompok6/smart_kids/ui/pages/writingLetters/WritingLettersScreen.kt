@@ -209,7 +209,7 @@ fun WritingLettersScreen(
                             shape = RoundedCornerShape(20.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color(0xFF81C784),
-                                contentColor = Color.White
+                                contentColor = Color.Black
                             ),
                             modifier = Modifier
                                 .padding(horizontal = 32.dp)
