@@ -17,91 +17,85 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kelompok6.smart_kids.R
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 
-@OptIn(ExperimentalMaterial3Api::class)
+
+
 @Composable
 fun SlideBar(onMenuClick: (String) -> Unit) {
-    ModalDrawerSheet(
+
+
+    Column(
         modifier = Modifier
-            .background(Color(0xFFD8EEDC))
             .fillMaxHeight()
+            .width(300.dp)
+            .background(Color(0xFFD8EEDC))
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.Start
     ) {
-        Box(
-            modifier = Modifier
-                .width(300.dp)
-                .fillMaxHeight()
+        // Header: Back + Profil
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 24.dp), // ✅ disesuaikan
-                horizontalAlignment = Alignment.Start
+            IconButton(
+                onClick = {
+                    // Tidak perlu tutup manual — item menu akan tutup otomatis
+                    // Tapi jika ingin tutup saat klik "back", tambahkan logika di HomeScreen
+                },
+                modifier = Modifier.size(48.dp)
             ) {
-                // Header: Back + Profil
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    IconButton(
-                        onClick = { /* Tutup drawer atau kembali */ },
-                        modifier = Modifier.size(48.dp)
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.back),
-                            contentDescription = "Kembali",
-                            tint = Color.Black,
-                            modifier = Modifier.size(32.dp)
-                        )
-                    }
 
-                    Spacer(modifier = Modifier.height(15.dp))
-
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 4.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.profil),
-                            contentDescription = "Profil",
-                            tint = Color.Black,
-                            modifier = Modifier.size(64.dp)
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                // Menu Items
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 32.dp), // ✅ sedikit lebih dalam
-                    verticalArrangement = Arrangement.spacedBy(24.dp) // ✅ jarak lebih rapat
-                ) {
-                    DrawerItem(
-                        text = "Beranda",
-                        onClick = { onMenuClick("home") },
-                        backgroundColor = Color.White
-                    )
-                    DrawerItem(
-                        text = "Membaca",
-                        onClick = { onMenuClick("reading") },
-                        backgroundColor = Color(0xFF9CD7A0)
-                    )
-                    DrawerItem(
-                        text = "Menulis",
-                        onClick = { onMenuClick("writing") },
-                        backgroundColor = Color.White
-                    )
-                    DrawerItem(
-                        text = "Edit Profile",
-                        onClick = { onMenuClick("edit_profile") },
-                        backgroundColor = Color(0xFF9CD7A0)
-                    )
-                }
             }
+
+            Spacer(modifier = Modifier.height(15.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.profil),
+                    contentDescription = "Profil",
+                    tint = Color.Black,
+                    modifier = Modifier.size(64.dp)
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        // Menu Items
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            DrawerItem(
+                text = "Beranda",
+                onClick = { onMenuClick("home") },
+                backgroundColor = Color.White
+            )
+            DrawerItem(
+                text = "Membaca",
+                onClick = { onMenuClick("reading") },
+                backgroundColor = Color(0xFF9CD7A0)
+            )
+            DrawerItem(
+                text = "Menulis",
+                onClick = { onMenuClick("writing") },
+                backgroundColor = Color.White
+            )
+            DrawerItem(
+                text = "Edit Profile",
+                onClick = { onMenuClick("edit_profile") },
+                backgroundColor = Color(0xFF9CD7A0)
+            )
         }
     }
 }
@@ -130,7 +124,6 @@ private fun DrawerItem(
         )
     }
 }
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewSlideBar() {

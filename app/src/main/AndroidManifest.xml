@@ -49,6 +49,16 @@
             android:name=".ui.pages.introduction.AlphabetActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.pages.mengucapkan.MengucapkanHurufActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.writingWords.WritingWordsActivity"
+            android:exported="false" />
+
+
+
 
     </application>
 

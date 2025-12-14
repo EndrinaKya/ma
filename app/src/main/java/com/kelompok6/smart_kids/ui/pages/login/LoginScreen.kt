@@ -108,7 +108,7 @@ fun LoginScreen(
                         IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
                             Icon(
                                 painter = painterResource(
-                                    id = if (isPasswordVisible) R.drawable.pwoff else R.drawable.pwon
+                                    id = if (isPasswordVisible) R.drawable.pwon else R.drawable.pwoff
                                 ),
                                 contentDescription = "Toggle password",
                                 modifier = Modifier.size(24.dp)
