@@ -1,3 +1,5 @@
+@file:kotlin.OptIn(ExperimentalMaterial3Api::class)
+
 package com.kelompok6.smart_kids.ui.pages.introduction
 
 import androidx.compose.foundation.layout.*
@@ -12,14 +14,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kelompok6.smart_kids.R
+import com.kelompok6.smart_kids.data.response.AlphabetItem
 import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.annotation.OptIn
+import androidx.compose.material3.ExperimentalMaterial3Api
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AlphabetScreen(
+    alphabetList: List<AlphabetItem>,  // ✅ Terima data dari API
     onBackClick: () -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    onLetterClick: (String) -> Unit  // ✅ Kirim huruf yang diklik
 ) {
     Scaffold(
         topBar = {
@@ -77,85 +84,59 @@ fun AlphabetScreen(
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // === Grid Huruf A-Z (Manual seperti awal) ===
-            Column(
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                // Baris 1: A-E
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    AlphabetButton("A") { /* suara A */ }
-                    AlphabetButton("B") { /* suara B */ }
-                    AlphabetButton("C") { /* suara C */ }
-                    AlphabetButton("D") { /* suara D */ }
-                    AlphabetButton("E") { /* suara E */ }
-                }
-
-                // Baris 2: F-J
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    AlphabetButton("F") { /* suara F */ }
-                    AlphabetButton("G") { /* suara G */ }
-                    AlphabetButton("H") { /* suara H */ }
-                    AlphabetButton("I") { /* suara I */ }
-                    AlphabetButton("J") { /* suara J */ }
-                }
-
-                // Baris 3: K-O
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    AlphabetButton("K") { /* suara K */ }
-                    AlphabetButton("L") { /* suara L */ }
-                    AlphabetButton("M") { /* suara M */ }
-                    AlphabetButton("N") { /* suara N */ }
-                    AlphabetButton("O") { /* suara O */ }
-                }
-
-                // Baris 4: P-T
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    AlphabetButton("P") { /* suara P */ }
-                    AlphabetButton("Q") { /* suara Q */ }
-                    AlphabetButton("R") { /* suara R */ }
-                    AlphabetButton("S") { /* suara S */ }
-                    AlphabetButton("T") { /* suara T */ }
-                }
-
-                // Baris 5: U-X
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    AlphabetButton("U") { /* suara U */ }
-                    AlphabetButton("V") { /* suara V */ }
-                    AlphabetButton("W") { /* suara W */ }
-                    AlphabetButton("X") { /* suara X */ }
-                }
-
-                // Baris 6: Y-Z
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    AlphabetButton("Y") { /* suara Y */ }
-                    AlphabetButton("Z") { /* suara Z */ }
-                }
-            }
+            // ✅ GRID DINAMIS (tidak ada hardcode!)
+            AlphabetGrid(
+                alphabetList = alphabetList,
+                onLetterClick = onLetterClick
+            )
 
             Spacer(modifier = Modifier.height(50.dp))
             Button(
-                    onClick = onNextClick,
-                    modifier = Modifier
-                        .height(50.dp)
-                        .width(100.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF81C784)
-                    ),
-                    shape = RoundedCornerShape(20.dp)
-                ) {
-                    Text(
-                        text = "NEXT",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
+                onClick = onNextClick,
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(100.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF81C784)
+                ),
+                shape = RoundedCornerShape(20.dp)
+            ) {
+                Text(
+                    text = "NEXT",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
+        }
+    }
+}
+
+// ✅ Komponen grid dinamis
+@Composable
+fun AlphabetGrid(
+    alphabetList: List<AlphabetItem>,
+    onLetterClick: (String) -> Unit
+) {
+    // Kelompokkan jadi baris berisi maks 5 huruf (seperti desain asli)
+    val rows = alphabetList.chunked(5)
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        for (row in rows) {
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                for (item in row) {
+                    AlphabetButton(letter = item.letter) {
+                        onLetterClick(item.letter)
+                    }
                 }
             }
         }
     }
-
+}
 
 @Composable
 fun AlphabetButton(letter: String, onClick: () -> Unit) {
@@ -163,7 +144,7 @@ fun AlphabetButton(letter: String, onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier
             .size(56.dp)
-            .aspectRatio(1f), // ✅ Ini kunci agar tidak miring!
+            .aspectRatio(1f),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,
@@ -180,10 +161,24 @@ fun AlphabetButton(letter: String, onClick: () -> Unit) {
     }
 }
 
+// ✅ Preview dengan data dummy
 @Preview(showBackground = true)
 @Composable
 fun PreviewAlphabetScreen() {
+    val dummyList = listOf(
+        AlphabetItem("A", ""),
+        AlphabetItem("B", ""),
+        AlphabetItem("C", ""),
+        AlphabetItem("D", ""),
+        AlphabetItem("E", ""),
+        AlphabetItem("F", "")
+    )
     Smart_KidsTheme {
-        AlphabetScreen(onBackClick = {}, onNextClick = {})
+        AlphabetScreen(
+            alphabetList = dummyList,
+            onBackClick = {},
+            onNextClick = {},
+            onLetterClick = {}
+        )
     }
 }

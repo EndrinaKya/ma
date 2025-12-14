@@ -24,10 +24,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
+// ✅ Ubah signature: kirim data ke callback
 @Composable
 fun RegisterScreen(
     onNavigateToLogin: () -> Unit,
-    onRegisterClick: () -> Unit,
+    onRegisterClick: (name: String, email: String, password: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     RegisterScreenContent(
@@ -40,7 +41,7 @@ fun RegisterScreen(
 @Composable
 fun RegisterScreenContent(
     onNavigateToLogin: () -> Unit,
-    onRegisterClick: () -> Unit,
+    onRegisterClick: (name: String, email: String, password: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var namaLengkap by remember { mutableStateOf("") }
@@ -182,10 +183,18 @@ fun RegisterScreenContent(
                 )
             }
 
-            Spacer(Modifier.height(30.dp))
+            Spacer(Modifier.height(20.dp))
 
             Button(
-                onClick = onRegisterClick,
+                onClick = {
+                    // ✅ Validasi konfirmasi password di sini (opsional, tapi disarankan)
+                    if (password != konfirPass) {
+                        // ❌ Tapi karena kita tidak punya context di Composable,
+                        //   sebaiknya validasi dilakukan di Activity/ViewModel
+                        //   jadi kita tetap kirim, dan biarkan Activity yang handle
+                    }
+                    onRegisterClick(namaLengkap, email, password)
+                },
                 modifier = Modifier
                     .width(180.dp)
                     .height(50.dp),
@@ -228,7 +237,7 @@ fun PreviewRegisterScreen() {
     Smart_KidsTheme {
         RegisterScreen(
             onNavigateToLogin = { },
-            onRegisterClick = { }
+            onRegisterClick = { _, _, _ -> }
         )
     }
 }

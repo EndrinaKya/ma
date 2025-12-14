@@ -1,7 +1,7 @@
 package com.kelompok6.smart_kids.data.response
 
 data class RegisterResponse(
-    val success: Boolean,
-    val message: String,
-    val token: String? = null
+    val status: String?,    // "success" atau null
+    val message: String?,
+    val error: String? = null  // opsional, untuk konsistensi penanganan error
 )
