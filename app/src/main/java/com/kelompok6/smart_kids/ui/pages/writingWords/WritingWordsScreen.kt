@@ -98,12 +98,11 @@ fun WritingWordsScreen(
                                 .background(Color.White, RoundedCornerShape(12.dp)),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(
-                                text = "GAMBAR\nKUDA",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color.Gray,
-                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            androidx.compose.foundation.Image(
+                                painter = painterResource(id = R.drawable.ayam),
+                                contentDescription = "Contoh huruf",
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = androidx.compose.ui.layout.ContentScale.Fit
                             )
                         }
                     }

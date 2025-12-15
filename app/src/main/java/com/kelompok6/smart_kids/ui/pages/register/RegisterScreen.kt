@@ -136,6 +136,7 @@ fun RegisterScreenContent(
                                     id = if (isPasswordVisible) R.drawable.pwon else R.drawable.pwoff
                                 ),
                                 contentDescription = "Toggle password",
+                                tint = Color.Black,
                                 modifier = Modifier.size(24.dp)
                             )
                         }
@@ -166,6 +167,7 @@ fun RegisterScreenContent(
                                     id = if (isPasswordVisible) R.drawable.pwon else R.drawable.pwoff
                                 ),
                                 contentDescription = "Toggle password",
+                                tint = Color.Black,
                                 modifier = Modifier.size(24.dp)
                             )
                         }
