@@ -19,11 +19,7 @@ import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WritingScreen(
-    onBackClick: () -> Unit,
-    onStartLettersClick: () -> Unit, // ✅ Tambahkan
-    onStartWordsClick: () -> Unit    // ✅ Tambahkan
-) {
+fun WritingScreen(onBackClick: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,7 +42,7 @@ fun WritingScreen(
                 )
             )
         },
-        containerColor = Color(0xFFA5D6A7)
+        containerColor = Color(0xFFA5D6A7) // Sesuaikan dengan tema utama
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -78,7 +74,7 @@ fun WritingScreen(
                     color = Color.Black
                 )
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(40.dp)) // jarak atas
             Divider(
                 color = Color.Black.copy(alpha = 0.5f),
                 thickness = 2.dp,
@@ -86,7 +82,7 @@ fun WritingScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp)
             )
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(40.dp)) // jarak bawah
 
             Text(
                 text = "“ Ayo menulis! Setiap goresan \n" +
@@ -121,7 +117,7 @@ fun WritingScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Menulis Huruf",
+                        text = "Mengucapkan Huruf",
                         fontSize = 16.sp,
                         color = Color.Black
                     )
@@ -130,12 +126,12 @@ fun WritingScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = onStartLettersClick, // ✅ Ganti ke callback
+                onClick = { /* mulai huruf */ },
                 modifier = Modifier
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFD8EEDC),
+                    containerColor = Color(0xFF81C784),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)
@@ -166,7 +162,7 @@ fun WritingScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "Belajar Menulis Kata",
+                        text = "Memahami Kata",
                         fontSize = 16.sp,
                         color = Color.Black
                     )
@@ -175,12 +171,12 @@ fun WritingScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
             Button(
-                onClick = onStartWordsClick, // ✅ Ganti ke callback
+                onClick = { /* mulai kata */ },
                 modifier = Modifier
                     .height(40.dp)
                     .width(120.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFD8EEDC),
+                    containerColor = Color(0xFF81C784),
                     contentColor = Color.Black
                 ),
                 shape = RoundedCornerShape(20.dp)
@@ -197,10 +193,6 @@ fun WritingScreen(
 @Composable
 fun PreviewWritingScreen() {
     Smart_KidsTheme {
-        WritingScreen(
-            onBackClick = {},
-            onStartLettersClick = {},
-            onStartWordsClick = {}
-        )
+        WritingScreen(onBackClick = {})
     }
 }

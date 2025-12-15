@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -61,6 +64,15 @@
 
         <activity
             android:name=".ui.pages.writingWords.WritingWordsActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.pages.writingLetters.WritingLettersActivity"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".ui.pages.memahami.MemahamiKataActivity"
             android:exported="false" />
 
     </application>

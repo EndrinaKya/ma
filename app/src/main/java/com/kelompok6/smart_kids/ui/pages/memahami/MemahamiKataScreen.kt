@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,7 +21,7 @@ import com.kelompok6.smart_kids.ui.theme.Smart_KidsTheme
 fun MemahamiKataScreen(
     onBackClick: () -> Unit,
     onMicClick: () -> Unit,
-    wordImageResId: Int? = null // ✅ ganti nama parameter jadi "wordImageResId"
+    letterImageResId: Int? = null
 ) {
     Scaffold(
         topBar = {
@@ -36,7 +35,7 @@ fun MemahamiKataScreen(
                             painter = painterResource(id = R.drawable.back),
                             contentDescription = "Kembali",
                             tint = Color.Black,
-                            modifier = Modifier.size(32.dp)
+                            modifier = Modifier.size(40.dp)
                         )
                     }
                 },
@@ -53,9 +52,11 @@ fun MemahamiKataScreen(
                     .fillMaxSize()
                     .padding(
                         top = paddingValues.calculateTopPadding(),
+                        // Jangan padding bottom agar footer bisa menempel paling bawah
                         bottom = 0.dp
                     )
             ) {
+                // Konten utama
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -74,11 +75,10 @@ fun MemahamiKataScreen(
 
                     Spacer(modifier = Modifier.height(40.dp))
 
-                    // ✅ Tampilkan gambar KATA (benda/objek)
-                    if (wordImageResId != null) {
+                    if (letterImageResId != null) {
                         androidx.compose.foundation.Image(
-                            painter = painterResource(id = wordImageResId),
-                            contentDescription = "Ilustrasi kata",
+                            painter = painterResource(id = letterImageResId),
+                            contentDescription = "Gambar huruf",
                             modifier = Modifier
                                 .size(180.dp)
                                 .background(Color.White, RoundedCornerShape(12.dp))
@@ -93,35 +93,36 @@ fun MemahamiKataScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "Gambar\nKata", // ✅ ubah dari "Huruf" → "Kata"
+                                text = "Gambar\nHuruf",
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Medium,
                                 color = Color.Gray,
-                                textAlign = TextAlign.Center
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
                             )
                         }
                     }
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // ✅ Instruksi: ucapkan NAMA GAMBAR (kata), bukan huruf
                     Text(
                         text = "Ayo, ucapkan \n" +
-                                "nama benda di atas!",
+                                "nama gambar di atas!",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         color = Color.Black,
-                        textAlign = TextAlign.Center,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
                     )
+
                 }
 
-                // Footer tetap sama
+                // === Footer lengkap dengan Divider di atasnya ===
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.BottomCenter)
                 ) {
+                    // Divider di atas mic
                     Divider(
                         color = Color.Black.copy(alpha = 0.5f),
                         thickness = 1.dp,
@@ -130,6 +131,7 @@ fun MemahamiKataScreen(
 
                     Spacer(modifier = Modifier.height(60.dp))
 
+                    // Mic box
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -171,7 +173,6 @@ fun MemahamiKataScreen(
         }
     )
 }
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewMemahamiKataScreen() {
